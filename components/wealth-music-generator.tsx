@@ -275,6 +275,7 @@ export function WealthMusicGenerator() {
   const [showVisualizer, setShowVisualizer] = useState(true)
   const [showQuickStart, setShowQuickStart] = useState(true)
   const [recentGenerations, setRecentGenerations] = useState<GeneratedTrack[]>([])
+  const [currentTipIndex, setCurrentTipIndex] = useState(0)
 
   const quickStartScenarios = [
     wealthScenarios.find((s) => s.id === "morning-motivation"),
@@ -290,6 +291,11 @@ export function WealthMusicGenerator() {
     "Play celebration music after achieving financial milestones to reinforce positive associations",
     "Combine different scenarios throughout your day for a complete success soundtrack experience",
   ]
+
+  // Set random tip only on client side to avoid hydration mismatch
+  useEffect(() => {
+    setCurrentTipIndex(Math.floor(Math.random() * successTips.length))
+  }, [])
 
   const generateMusic = async () => {
     if (!selectedScenario && !customPrompt.trim()) return
@@ -542,14 +548,16 @@ export function WealthMusicGenerator() {
         </div>
 
         {showQuickStart && playlist.length === 0 && (
-          <Card className="mb-8 bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10">
-            <CardHeader className="border-b border-yellow-500/20">
-              <CardTitle className="flex items-center gap-3 text-2xl font-black text-yellow-400 font-serif">
-                <Sparkles className="w-6 h-6 text-yellow-400" />
-                QUICK START: POWER SCENARIOS
+          <Card className="mb-8 bg-black border-8 border-white/10 shadow-none rounded-none">
+            <CardHeader className="border-b-8 border-yellow-500 bg-gradient-to-r from-black via-gray-900 to-black p-8">
+              <CardTitle className="flex items-center gap-4 text-5xl font-black text-white uppercase tracking-[-0.08em]">
+                <div className="w-16 h-16 bg-yellow-500 flex items-center justify-center shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-3">
+                  <Sparkles className="w-10 h-10 text-black" />
+                </div>
+                QUICK <span className="text-yellow-500">START</span>
               </CardTitle>
-              <CardDescription className="text-gray-300 text-lg">
-                Get started instantly with these proven wealth mindset boosters
+              <CardDescription className="text-white/60 text-sm font-black uppercase tracking-[0.2em] mt-2">
+                INSTANT WEALTH FREQUENCY ACTIVATION
               </CardDescription>
             </CardHeader>
             <CardContent className="p-8">
@@ -596,7 +604,7 @@ export function WealthMusicGenerator() {
                       <TabsTrigger
                         key={key}
                         value={key}
-                        className="text-xs font-bold uppercase tracking-wider data-[state=active]:bg-yellow-500 data-[state=active]:text-black"
+                        className="text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors data-[state=active]:bg-yellow-500 data-[state=active]:text-black"
                       >
                         {label.split(" ")[0]}
                       </TabsTrigger>
@@ -668,7 +676,7 @@ export function WealthMusicGenerator() {
                   <Lightbulb className="h-5 w-5 text-emerald-400" />
                   <AlertDescription className="text-emerald-300 font-medium">
                     <strong className="text-emerald-400">PRO TIP:</strong>{" "}
-                    {successTips[Math.floor(Math.random() * successTips.length)]}
+                    {successTips[currentTipIndex]}
                   </AlertDescription>
                 </Alert>
               </CardContent>

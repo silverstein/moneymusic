@@ -126,7 +126,37 @@
     @apply bg-background text-foreground;
   }
 
-  /* Custom luxury styling for badass aesthetic */
+  /* Brutalist design system */
+  .text-stroke {
+    text-shadow: 
+      -2px -2px 0 #fff,
+      2px -2px 0 #fff,
+      -2px 2px 0 #fff,
+      2px 2px 0 #fff,
+      4px 4px 0 #000;
+  }
+
+  .brutalist-shadow {
+    box-shadow: 8px 8px 0 0 rgba(0,0,0,1);
+  }
+
+  .brutalist-shadow-sm {
+    box-shadow: 4px 4px 0 0 rgba(0,0,0,1);
+  }
+
+  .brutalist-border {
+    @apply border-4 border-black;
+  }
+
+  .brutalist-text {
+    @apply font-black uppercase tracking-[0.1em];
+  }
+
+  .brutalist-card {
+    @apply bg-black border-8 border-white/10 rounded-none;
+  }
+
+  /* Legacy styles for reference */
   .glass-card {
     @apply bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10;
   }
@@ -137,10 +167,6 @@
 
   .emerald-glow {
     @apply shadow-lg shadow-emerald-500/30;
-  }
-
-  .brutalist-text {
-    @apply font-black tracking-tight uppercase;
   }
 
   .luxury-border {
