@@ -565,18 +565,19 @@ export function WealthMusicGenerator() {
                 {quickStartScenarios.map((scenario) => (
                   <Card
                     key={scenario.id}
-                    className="cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/20 hover:scale-105 bg-black/80 backdrop-blur-sm border-2 border-gray-800 hover:border-yellow-500/50"
+                    className="cursor-pointer transition-all duration-100 hover:translate-y-[-4px] bg-black border-4 border-white/20 hover:border-yellow-500 rounded-none group relative overflow-hidden"
                     onClick={() => {
                       setSelectedScenario(scenario)
                       setActiveCategory(scenario.category)
                     }}
                   >
-                    <CardContent className="p-6 text-center">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-amber-600 text-black flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/30">
+                    <div className="absolute inset-0 bg-yellow-500 opacity-0 group-hover:opacity-10 transition-opacity" />
+                    <CardContent className="p-6 text-center relative z-10">
+                      <div className="w-20 h-20 bg-white text-black flex items-center justify-center mx-auto mb-4 shadow-[6px_6px_0_0_rgba(234,179,8,1)] group-hover:shadow-[3px_3px_0_0_rgba(234,179,8,1)] transition-all duration-100">
                         {scenario.icon}
                       </div>
-                      <h3 className="font-bold text-white text-lg mb-2 font-serif">{scenario.title}</h3>
-                      <p className="text-sm text-gray-400 leading-relaxed">{scenario.description}</p>
+                      <h3 className="font-black text-white text-xl mb-2 uppercase tracking-tight">{scenario.title}</h3>
+                      <p className="text-xs text-white/60 uppercase tracking-wider font-bold">{scenario.description}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -587,24 +588,26 @@ export function WealthMusicGenerator() {
 
         <div className="grid lg:grid-cols-2 gap-8">
           <div className="space-y-8">
-            <Card className="bg-black/60 backdrop-blur-md border border-emerald-500/30 shadow-2xl shadow-emerald-500/10">
-              <CardHeader className="border-b border-emerald-500/20">
-                <CardTitle className="flex items-center gap-3 text-2xl font-black text-emerald-400 font-serif">
-                  <TrendingUp className="w-6 h-6 text-emerald-400" />
+            <Card className="bg-black border-8 border-white/10 shadow-none rounded-none">
+              <CardHeader className="border-b-8 border-yellow-500 bg-gradient-to-r from-black via-gray-900 to-black p-8">
+                <CardTitle className="flex items-center gap-4 text-4xl font-black text-white uppercase tracking-[-0.05em]">
+                  <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                    <TrendingUp className="w-8 h-8 text-black" />
+                  </div>
                   SUCCESS SCENARIOS
                 </CardTitle>
-                <CardDescription className="text-gray-300 text-lg">
-                  Choose from comprehensive wealth-building scenarios
+                <CardDescription className="text-white/60 text-sm font-black uppercase tracking-[0.15em] mt-2">
+                  CHOOSE YOUR WEALTH-BUILDING PROTOCOL
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
                 <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-6 bg-black/80 border border-gray-700">
+                  <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-8 bg-black border-4 border-white/20 p-0 rounded-none">
                     {Object.entries(categoryLabels).map(([key, label]) => (
                       <TabsTrigger
                         key={key}
                         value={key}
-                        className="text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors data-[state=active]:bg-yellow-500 data-[state=active]:text-black"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white transition-none data-[state=active]:bg-yellow-500 data-[state=active]:text-black data-[state=active]:shadow-[inset_0_-4px_0_0_rgba(0,0,0,0.5)] rounded-none border-r-2 border-black last:border-r-0 py-4"
                       >
                         {label.split(" ")[0]}
                       </TabsTrigger>
@@ -624,21 +627,21 @@ export function WealthMusicGenerator() {
                         .map((scenario) => (
                           <Card
                             key={scenario.id}
-                            className={`cursor-pointer transition-all duration-300 hover:shadow-xl ${
+                            className={`cursor-pointer transition-none hover:translate-x-2 ${
                               selectedScenario?.id === scenario.id
-                                ? "ring-2 ring-yellow-500 bg-yellow-500/10 backdrop-blur-sm border-yellow-500/50"
-                                : "hover:bg-gray-900/50 bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-gray-600"
-                            }`}
+                                ? "border-l-8 border-yellow-500 bg-yellow-500/5 shadow-[inset_0_0_0_2px_rgba(234,179,8,0.5)]"
+                                : "border-l-8 border-white/20 bg-black hover:border-l-white/40"
+                            } border-2 border-white/10 rounded-none`}
                             onClick={() => setSelectedScenario(scenario)}
                           >
                             <CardContent className="p-6">
                               <div className="flex items-start gap-4">
-                                <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-600 text-black flex-shrink-0 shadow-lg shadow-yellow-500/30">
+                                <div className="p-3 bg-white text-black flex-shrink-0 shadow-[4px_4px_0_0_rgba(234,179,8,1)]">
                                   {scenario.icon}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-3 mb-2">
-                                    <h3 className="font-bold text-white text-lg truncate font-serif">
+                                    <h3 className="font-black text-white text-xl uppercase tracking-tight">
                                       {scenario.title}
                                     </h3>
                                     {recentGenerations.some((track) => track.scenario?.id === scenario.id) && (
@@ -728,10 +731,10 @@ export function WealthMusicGenerator() {
           </div>
 
           <div className="space-y-8">
-            <Card className="bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10">
-              <CardHeader className="border-b border-yellow-500/20">
-                <CardTitle className="text-2xl font-black text-yellow-400 font-serif">MUSIC SETTINGS</CardTitle>
-                <CardDescription className="text-gray-300 text-lg">Customize your wealth soundtrack</CardDescription>
+            <Card className="bg-black border-8 border-white/10 shadow-none rounded-none">
+              <CardHeader className="border-b-8 border-yellow-500 bg-black p-8">
+                <CardTitle className="text-4xl font-black text-yellow-500 uppercase tracking-[-0.05em]">MUSIC SETTINGS</CardTitle>
+                <CardDescription className="text-white/60 text-sm font-black uppercase tracking-[0.15em] mt-2">CUSTOMIZE YOUR WEALTH SOUNDTRACK</CardDescription>
               </CardHeader>
               <CardContent className="space-y-8 p-8">
                 <div>
@@ -806,17 +809,17 @@ export function WealthMusicGenerator() {
                 <Button
                   onClick={generateMusic}
                   disabled={isGenerating || (!selectedScenario && !customPrompt.trim())}
-                  className="w-full bg-gradient-to-r from-yellow-500 via-yellow-400 to-amber-500 hover:from-yellow-600 hover:via-yellow-500 hover:to-amber-600 text-black font-black text-xl py-6 shadow-2xl shadow-yellow-500/30 transition-all duration-300 hover:shadow-yellow-500/50 font-serif tracking-wide"
+                  className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black text-2xl py-8 shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-[0.2em] border-4 border-black rounded-none transition-all duration-100"
                   size="lg"
                 >
                   {isGenerating ? (
                     <>
-                      <Loader2 className="w-6 h-6 mr-3 animate-spin" />
-                      GENERATING YOUR WEALTH MUSIC...
+                      <Loader2 className="w-8 h-8 mr-4 animate-spin" />
+                      PROCESSING...
                     </>
                   ) : (
                     <>
-                      <Music className="w-6 h-6 mr-3" />
+                      <Music className="w-8 h-8 mr-4" />
                       GENERATE WEALTH MUSIC
                     </>
                   )}
