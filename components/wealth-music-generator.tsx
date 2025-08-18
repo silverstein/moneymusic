@@ -512,37 +512,43 @@ export function WealthMusicGenerator() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-emerald-950 opacity-90" />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Brutalist geometric background pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-500/5 rotate-45 translate-x-48 -translate-y-48" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-500/5 rotate-12 translate-x-48 translate-y-48" />
+        <div className="absolute top-1/2 left-1/4 w-64 h-64 border-8 border-white/5" />
+        <div className="absolute bottom-1/3 right-1/3 w-48 h-48 border-4 border-yellow-500/10 rotate-45" />
+      </div>
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
         <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-6 font-serif">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-[-0.08em] text-yellow-500 mb-2 uppercase text-stroke">
             WEALTH MUSIC
           </h1>
-          <h2 className="text-2xl md:text-3xl font-bold text-emerald-400 mb-4 tracking-wide uppercase font-mono">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-emerald-500 mb-6 tracking-[0.3em] uppercase">
             GENERATOR
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-sm md:text-base lg:text-lg text-white/60 max-w-2xl mx-auto font-black uppercase tracking-wider">
             Create AI-powered music that puts you in the perfect mindset for building wealth, closing deals, and
             achieving financial success.
           </p>
 
-          <div className="flex justify-center gap-8 mt-12">
-            <div className="text-center p-4 rounded-lg bg-black/40 backdrop-blur-sm border border-yellow-500/20">
-              <div className="text-3xl font-black text-yellow-400 font-mono">{playlist.length}</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wider">Tracks Generated</div>
+          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mt-12">
+            <div className="text-center p-6 bg-black border-4 border-yellow-500 rounded-none shadow-[6px_6px_0_0_rgba(234,179,8,0.5)]">
+              <div className="text-4xl md:text-5xl font-black text-yellow-500 font-mono">{playlist.length}</div>
+              <div className="text-xs md:text-sm text-white uppercase tracking-[0.2em] font-black mt-2">Tracks Generated</div>
             </div>
-            <div className="text-center p-4 rounded-lg bg-black/40 backdrop-blur-sm border border-emerald-500/20">
-              <div className="text-3xl font-black text-emerald-400 font-mono">
+            <div className="text-center p-6 bg-black border-4 border-emerald-500 rounded-none shadow-[6px_6px_0_0_rgba(16,185,129,0.5)]">
+              <div className="text-4xl md:text-5xl font-black text-emerald-500 font-mono">
                 {Math.round(playlist.reduce((acc, track) => acc + track.duration, 0) / 60)}
               </div>
-              <div className="text-sm text-gray-400 uppercase tracking-wider">Minutes of Success</div>
+              <div className="text-xs md:text-sm text-white uppercase tracking-[0.2em] font-black mt-2">Minutes of Success</div>
             </div>
-            <div className="text-center p-4 rounded-lg bg-black/40 backdrop-blur-sm border border-yellow-500/20">
-              <div className="text-3xl font-black text-yellow-400 font-mono">
+            <div className="text-center p-6 bg-black border-4 border-yellow-500 rounded-none shadow-[6px_6px_0_0_rgba(234,179,8,0.5)]">
+              <div className="text-4xl md:text-5xl font-black text-yellow-500 font-mono">
                 {new Set(playlist.map((t) => t.scenario?.category)).size}
               </div>
-              <div className="text-sm text-gray-400 uppercase tracking-wider">Categories Explored</div>
+              <div className="text-xs md:text-sm text-white uppercase tracking-[0.2em] font-black mt-2">Categories Explored</div>
             </div>
           </div>
         </div>
@@ -550,11 +556,11 @@ export function WealthMusicGenerator() {
         {showQuickStart && playlist.length === 0 && (
           <Card className="mb-8 bg-black border-8 border-white/10 shadow-none rounded-none">
             <CardHeader className="border-b-8 border-yellow-500 bg-gradient-to-r from-black via-gray-900 to-black p-8">
-              <CardTitle className="flex items-center gap-4 text-5xl font-black text-white uppercase tracking-[-0.08em]">
-                <div className="w-16 h-16 bg-yellow-500 flex items-center justify-center shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-3">
-                  <Sparkles className="w-10 h-10 text-black" />
+              <CardTitle className="flex flex-col md:flex-row items-center gap-3 md:gap-4 text-3xl md:text-4xl lg:text-5xl font-black text-white uppercase tracking-[-0.08em]">
+                <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-yellow-500 flex items-center justify-center shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-3">
+                  <Sparkles className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-black" />
                 </div>
-                QUICK <span className="text-yellow-500">START</span>
+                <span className="text-center md:text-left">QUICK <span className="text-yellow-500">START</span></span>
               </CardTitle>
               <CardDescription className="text-white/60 text-sm font-black uppercase tracking-[0.2em] mt-2">
                 INSTANT WEALTH FREQUENCY ACTIVATION
@@ -590,11 +596,11 @@ export function WealthMusicGenerator() {
           <div className="space-y-8">
             <Card className="bg-black border-8 border-white/10 shadow-none rounded-none">
               <CardHeader className="border-b-8 border-yellow-500 bg-gradient-to-r from-black via-gray-900 to-black p-8">
-                <CardTitle className="flex items-center gap-4 text-4xl font-black text-white uppercase tracking-[-0.05em]">
-                  <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
-                    <TrendingUp className="w-8 h-8 text-black" />
+                <CardTitle className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-2xl md:text-3xl lg:text-4xl font-black text-white uppercase tracking-[-0.05em]">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-yellow-500 flex items-center justify-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                    <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-black" />
                   </div>
-                  SUCCESS SCENARIOS
+                  <span className="text-center md:text-left">SUCCESS SCENARIOS</span>
                 </CardTitle>
                 <CardDescription className="text-white/60 text-sm font-black uppercase tracking-[0.15em] mt-2">
                   CHOOSE YOUR WEALTH-BUILDING PROTOCOL
@@ -660,40 +666,42 @@ export function WealthMusicGenerator() {
               </CardContent>
             </Card>
 
-            <Card className="bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10">
-              <CardHeader className="border-b border-yellow-500/20">
-                <CardTitle className="text-2xl font-black text-yellow-400 font-serif">CUSTOM WEALTH MUSIC</CardTitle>
-                <CardDescription className="text-gray-300 text-lg">
-                  Describe your ideal success soundtrack
+            <Card className="bg-black border-8 border-white/10 shadow-none rounded-none">
+              <CardHeader className="border-b-8 border-yellow-500 bg-gradient-to-r from-black via-gray-900 to-black p-6 md:p-8">
+                <CardTitle className="text-3xl md:text-4xl font-black text-white uppercase tracking-[-0.05em]">CUSTOM <span className="text-yellow-500">WEALTH</span> MUSIC</CardTitle>
+                <CardDescription className="text-white/60 text-xs md:text-sm font-black uppercase tracking-[0.15em] mt-2">
+                  ENGINEER YOUR SUCCESS FREQUENCY
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6 p-8">
+              <CardContent className="space-y-6 p-6 md:p-8">
                 <Textarea
-                  placeholder="Describe the music that will put you in the perfect wealth-building mindset..."
+                  placeholder="DESCRIBE YOUR WEALTH FREQUENCY..."
                   value={customPrompt}
                   onChange={(e) => setCustomPrompt(e.target.value)}
-                  className="min-h-[120px] bg-black/60 border border-gray-700 text-white placeholder:text-gray-500 focus:border-yellow-500/50 backdrop-blur-sm"
+                  className="min-h-[120px] bg-black border-4 border-white/20 text-white placeholder:text-white/30 focus:border-yellow-500 font-mono text-xs md:text-sm uppercase tracking-wider rounded-none shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.5)]"
                 />
 
-                <Alert className="bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm">
-                  <Lightbulb className="h-5 w-5 text-emerald-400" />
-                  <AlertDescription className="text-emerald-300 font-medium">
-                    <strong className="text-emerald-400">PRO TIP:</strong>{" "}
-                    {successTips[currentTipIndex]}
+                <Alert className="bg-black border-4 border-emerald-500 rounded-none shadow-[4px_4px_0_0_rgba(16,185,129,0.5)]">
+                  <Lightbulb className="h-6 w-6 text-emerald-500" />
+                  <AlertDescription className="text-emerald-400 font-black uppercase text-xs md:text-sm tracking-wider">
+                    <strong className="text-emerald-500">PRO TIP:</strong>{" "}
+                    <span className="text-white">{successTips[currentTipIndex]}</span>
                   </AlertDescription>
                 </Alert>
               </CardContent>
             </Card>
 
             {recentGenerations.length > 0 && (
-              <Card className="bg-black/60 backdrop-blur-md border border-emerald-500/30 shadow-2xl shadow-emerald-500/10">
-                <CardHeader className="border-b border-emerald-500/20">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-black text-emerald-400 font-serif">
-                    <Clock className="w-6 h-6 text-emerald-400" />
-                    RECENT GENERATIONS
+              <Card className="bg-black border-8 border-white/10 shadow-none rounded-none">
+                <CardHeader className="border-b-8 border-emerald-500 bg-gradient-to-r from-black via-gray-900 to-black p-6 md:p-8">
+                  <CardTitle className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-2xl md:text-3xl lg:text-4xl font-black text-white uppercase tracking-[-0.05em]">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500 flex items-center justify-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                      <Clock className="w-6 h-6 md:w-8 md:h-8 text-black" />
+                    </div>
+                    <span className="text-center md:text-left">RECENT GENERATIONS</span>
                   </CardTitle>
-                  <CardDescription className="text-gray-300 text-lg">
-                    Your latest wealth music creations
+                  <CardDescription className="text-white/60 text-xs md:text-sm font-black uppercase tracking-[0.15em] mt-2">
+                    YOUR LATEST WEALTH FREQUENCIES
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
