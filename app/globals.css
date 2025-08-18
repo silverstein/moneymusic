@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -111,6 +111,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Adding luxury font family mappings for badass typography */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @layer base {
@@ -119,5 +124,26 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Custom luxury styling for badass aesthetic */
+  .glass-card {
+    @apply bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10;
+  }
+
+  .gold-gradient {
+    @apply bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600;
+  }
+
+  .emerald-glow {
+    @apply shadow-lg shadow-emerald-500/30;
+  }
+
+  .brutalist-text {
+    @apply font-black tracking-tight uppercase;
+  }
+
+  .luxury-border {
+    @apply border border-yellow-500/30;
   }
 }

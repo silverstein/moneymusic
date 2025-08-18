@@ -506,464 +506,528 @@ export function WealthMusicGenerator() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
-          Wealth Music Generator
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Create AI-powered music that puts you in the perfect mindset for building wealth, closing deals, and achieving
-          financial success.
-        </p>
+    <div className="min-h-screen bg-black text-white">
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-emerald-950 opacity-90" />
+      <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-6 font-serif">
+            WEALTH MUSIC
+          </h1>
+          <h2 className="text-2xl md:text-3xl font-bold text-emerald-400 mb-4 tracking-wide uppercase font-mono">
+            GENERATOR
+          </h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
+            Create AI-powered music that puts you in the perfect mindset for building wealth, closing deals, and
+            achieving financial success.
+          </p>
 
-        <div className="flex justify-center gap-6 mt-8">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-emerald-600">{playlist.length}</div>
-            <div className="text-sm text-muted-foreground">Tracks Generated</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">
-              {Math.round(playlist.reduce((acc, track) => acc + track.duration, 0) / 60)}
+          <div className="flex justify-center gap-8 mt-12">
+            <div className="text-center p-4 rounded-lg bg-black/40 backdrop-blur-sm border border-yellow-500/20">
+              <div className="text-3xl font-black text-yellow-400 font-mono">{playlist.length}</div>
+              <div className="text-sm text-gray-400 uppercase tracking-wider">Tracks Generated</div>
             </div>
-            <div className="text-sm text-muted-foreground">Minutes of Success</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">
-              {new Set(playlist.map((t) => t.scenario?.category)).size}
+            <div className="text-center p-4 rounded-lg bg-black/40 backdrop-blur-sm border border-emerald-500/20">
+              <div className="text-3xl font-black text-emerald-400 font-mono">
+                {Math.round(playlist.reduce((acc, track) => acc + track.duration, 0) / 60)}
+              </div>
+              <div className="text-sm text-gray-400 uppercase tracking-wider">Minutes of Success</div>
             </div>
-            <div className="text-sm text-muted-foreground">Categories Explored</div>
+            <div className="text-center p-4 rounded-lg bg-black/40 backdrop-blur-sm border border-yellow-500/20">
+              <div className="text-3xl font-black text-yellow-400 font-mono">
+                {new Set(playlist.map((t) => t.scenario?.category)).size}
+              </div>
+              <div className="text-sm text-gray-400 uppercase tracking-wider">Categories Explored</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {showQuickStart && playlist.length === 0 && (
-        <Card className="mb-8 border-emerald-200 bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-950 dark:to-blue-950">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-emerald-500" />
-              Quick Start: Popular Success Scenarios
-            </CardTitle>
-            <CardDescription>Get started instantly with these proven wealth mindset boosters</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {quickStartScenarios.map((scenario) => (
-                <Card
-                  key={scenario.id}
-                  className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-emerald-200"
-                  onClick={() => {
-                    setSelectedScenario(scenario)
-                    setActiveCategory(scenario.category)
-                  }}
-                >
-                  <CardContent className="p-4 text-center">
-                    <div
-                      className={`w-12 h-12 rounded-full ${scenario.color} text-white flex items-center justify-center mx-auto mb-3`}
-                    >
-                      {scenario.icon}
-                    </div>
-                    <h3 className="font-semibold text-sm mb-1">{scenario.title}</h3>
-                    <p className="text-xs text-muted-foreground">{scenario.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      <div className="grid lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-emerald-500" />
-                Success Scenarios
+        {showQuickStart && playlist.length === 0 && (
+          <Card className="mb-8 bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10">
+            <CardHeader className="border-b border-yellow-500/20">
+              <CardTitle className="flex items-center gap-3 text-2xl font-black text-yellow-400 font-serif">
+                <Sparkles className="w-6 h-6 text-yellow-400" />
+                QUICK START: POWER SCENARIOS
               </CardTitle>
-              <CardDescription>Choose from comprehensive wealth-building scenarios</CardDescription>
+              <CardDescription className="text-gray-300 text-lg">
+                Get started instantly with these proven wealth mindset boosters
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-                <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-4">
-                  {Object.entries(categoryLabels).map(([key, label]) => (
-                    <TabsTrigger key={key} value={key} className="text-xs">
-                      {label.split(" ")[0]}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-
-                {Object.entries(categoryLabels).map(([category, label]) => (
-                  <TabsContent key={category} value={category} className="space-y-3">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-semibold text-lg">{label}</h3>
-                      <Badge variant="outline" className="text-xs">
-                        {wealthScenarios.filter((s) => s.category === category).length} scenarios
-                      </Badge>
-                    </div>
-                    {wealthScenarios
-                      .filter((scenario) => scenario.category === category)
-                      .map((scenario) => (
-                        <Card
-                          key={scenario.id}
-                          className={`cursor-pointer transition-all hover:shadow-md ${
-                            selectedScenario?.id === scenario.id
-                              ? "ring-2 ring-emerald-500 bg-emerald-50 dark:bg-emerald-950"
-                              : "hover:bg-muted/50"
-                          }`}
-                          onClick={() => setSelectedScenario(scenario)}
-                        >
-                          <CardContent className="p-4">
-                            <div className="flex items-start gap-3">
-                              <div className={`p-2 rounded-lg ${scenario.color} text-white flex-shrink-0`}>
-                                {scenario.icon}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <h3 className="font-semibold truncate">{scenario.title}</h3>
-                                  {recentGenerations.some((track) => track.scenario?.id === scenario.id) && (
-                                    <Star className="w-3 h-3 text-yellow-500 fill-current flex-shrink-0" />
-                                  )}
-                                </div>
-                                <p className="text-sm text-muted-foreground line-clamp-2">{scenario.description}</p>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                  </TabsContent>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {quickStartScenarios.map((scenario) => (
+                  <Card
+                    key={scenario.id}
+                    className="cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/20 hover:scale-105 bg-black/80 backdrop-blur-sm border-2 border-gray-800 hover:border-yellow-500/50"
+                    onClick={() => {
+                      setSelectedScenario(scenario)
+                      setActiveCategory(scenario.category)
+                    }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-amber-600 text-black flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/30">
+                        {scenario.icon}
+                      </div>
+                      <h3 className="font-bold text-white text-lg mb-2 font-serif">{scenario.title}</h3>
+                      <p className="text-sm text-gray-400 leading-relaxed">{scenario.description}</p>
+                    </CardContent>
+                  </Card>
                 ))}
-              </Tabs>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Custom Wealth Music</CardTitle>
-              <CardDescription>Describe your ideal success soundtrack</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <Textarea
-                placeholder="Describe the music that will put you in the perfect wealth-building mindset..."
-                value={customPrompt}
-                onChange={(e) => setCustomPrompt(e.target.value)}
-                className="min-h-[100px]"
-              />
-
-              <Alert>
-                <Lightbulb className="h-4 w-4" />
-                <AlertDescription>
-                  <strong>Pro Tip:</strong> {successTips[Math.floor(Math.random() * successTips.length)]}
-                </AlertDescription>
-              </Alert>
-            </CardContent>
-          </Card>
-
-          {recentGenerations.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-blue-500" />
-                  Recent Generations
-                </CardTitle>
-                <CardDescription>Your latest wealth music creations</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {recentGenerations.slice(0, 3).map((track, index) => (
-                    <div
-                      key={track.id}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
-                      onClick={() => {
-                        const trackIndex = playlist.findIndex((p) => p.id === track.id)
-                        if (trackIndex !== -1) {
-                          setCurrentTrackIndex(trackIndex)
-                          setGeneratedTrack(track.url)
-                        }
-                      }}
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-full ${track.scenario?.color || "bg-gray-500"} text-white flex items-center justify-center text-xs`}
-                      >
-                        {track.scenario?.icon || <Music className="w-4 h-4" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-sm truncate">{track.title}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {track.createdAt.toLocaleDateString()} • {track.duration}s
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="text-xs">
-                        #{index + 1}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Music Settings</CardTitle>
-              <CardDescription>Customize your wealth soundtrack</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <label className="text-sm font-medium mb-2 block">Duration: {duration[0]} seconds</label>
-                <Slider value={duration} onValueChange={setDuration} max={300} min={10} step={5} className="w-full" />
-                <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                  <span>Quick (10s)</span>
-                  <span>Standard (30s)</span>
-                  <span>Extended (5min)</span>
-                </div>
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Music Style</label>
-                  <Select value={selectedStyle} onValueChange={setSelectedStyle}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select style" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {musicStyles.map((style) => (
-                        <SelectItem key={style.value} value={style.value}>
-                          {style.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Tempo</label>
-                  <Select value={selectedTempo} onValueChange={setSelectedTempo}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select tempo" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {tempoRanges.map((tempo) => (
-                        <SelectItem key={tempo.value} value={tempo.value}>
-                          {tempo.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              {isGenerating && (
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span>Generating your wealth music...</span>
-                    <span>{generationProgress}%</span>
-                  </div>
-                  <Progress value={generationProgress} className="w-full" />
-                  <div className="text-center text-xs text-muted-foreground">
-                    Creating the perfect soundtrack for your success mindset
-                  </div>
-                </div>
-              )}
-
-              <Button
-                onClick={generateMusic}
-                disabled={isGenerating || (!selectedScenario && !customPrompt.trim())}
-                className="w-full bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600"
-                size="lg"
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Generating Your Wealth Music...
-                  </>
-                ) : (
-                  <>
-                    <Music className="w-4 h-4 mr-2" />
-                    Generate Wealth Music
-                  </>
-                )}
-              </Button>
-
-              {selectedScenario && (
-                <div className="text-center text-sm text-muted-foreground">
-                  Ready to generate: <span className="font-medium text-foreground">{selectedScenario.title}</span>
-                </div>
-              )}
             </CardContent>
           </Card>
+        )}
 
-          {generatedTrack && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span>Your Wealth Soundtrack</span>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsFavorited(!isFavorited)}
-                      className={isFavorited ? "text-red-500" : ""}
-                    >
-                      <Heart className={`w-4 h-4 ${isFavorited ? "fill-current" : ""}`} />
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={shareTrack}>
-                      <Share2 className="w-4 h-4" />
-                    </Button>
-                  </div>
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div className="space-y-8">
+            <Card className="bg-black/60 backdrop-blur-md border border-emerald-500/30 shadow-2xl shadow-emerald-500/10">
+              <CardHeader className="border-b border-emerald-500/20">
+                <CardTitle className="flex items-center gap-3 text-2xl font-black text-emerald-400 font-serif">
+                  <TrendingUp className="w-6 h-6 text-emerald-400" />
+                  SUCCESS SCENARIOS
                 </CardTitle>
-                <CardDescription>
-                  {playlist[currentTrackIndex]?.title || "Ready to boost your success mindset"}
+                <CardDescription className="text-gray-300 text-lg">
+                  Choose from comprehensive wealth-building scenarios
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {showVisualizer && (
-                  <div className="h-24 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg flex items-center justify-center">
-                    <div className="flex items-end gap-1 h-16">
-                      {Array.from({ length: 20 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className="bg-gradient-to-t from-emerald-500 to-blue-500 rounded-sm animate-pulse"
-                          style={{
-                            width: "3px",
-                            height: `${Math.random() * 100}%`,
-                            animationDelay: `${i * 0.1}s`,
-                          }}
-                        />
-                      ))}
+              <CardContent className="p-8">
+                <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
+                  <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-6 bg-black/80 border border-gray-700">
+                    {Object.entries(categoryLabels).map(([key, label]) => (
+                      <TabsTrigger
+                        key={key}
+                        value={key}
+                        className="text-xs font-bold uppercase tracking-wider data-[state=active]:bg-yellow-500 data-[state=active]:text-black"
+                      >
+                        {label.split(" ")[0]}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+
+                  {Object.entries(categoryLabels).map(([category, label]) => (
+                    <TabsContent key={category} value={category} className="space-y-4">
+                      <div className="flex items-center justify-between mb-6">
+                        <h3 className="font-black text-2xl text-white font-serif">{label}</h3>
+                        <Badge className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 font-mono">
+                          {wealthScenarios.filter((s) => s.category === category).length} scenarios
+                        </Badge>
+                      </div>
+                      {wealthScenarios
+                        .filter((scenario) => scenario.category === category)
+                        .map((scenario) => (
+                          <Card
+                            key={scenario.id}
+                            className={`cursor-pointer transition-all duration-300 hover:shadow-xl ${
+                              selectedScenario?.id === scenario.id
+                                ? "ring-2 ring-yellow-500 bg-yellow-500/10 backdrop-blur-sm border-yellow-500/50"
+                                : "hover:bg-gray-900/50 bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-gray-600"
+                            }`}
+                            onClick={() => setSelectedScenario(scenario)}
+                          >
+                            <CardContent className="p-6">
+                              <div className="flex items-start gap-4">
+                                <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-600 text-black flex-shrink-0 shadow-lg shadow-yellow-500/30">
+                                  {scenario.icon}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-3 mb-2">
+                                    <h3 className="font-bold text-white text-lg truncate font-serif">
+                                      {scenario.title}
+                                    </h3>
+                                    {recentGenerations.some((track) => track.scenario?.id === scenario.id) && (
+                                      <Star className="w-4 h-4 text-yellow-400 fill-current flex-shrink-0" />
+                                    )}
+                                  </div>
+                                  <p className="text-gray-300 line-clamp-2 leading-relaxed">{scenario.description}</p>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                    </TabsContent>
+                  ))}
+                </Tabs>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10">
+              <CardHeader className="border-b border-yellow-500/20">
+                <CardTitle className="text-2xl font-black text-yellow-400 font-serif">CUSTOM WEALTH MUSIC</CardTitle>
+                <CardDescription className="text-gray-300 text-lg">
+                  Describe your ideal success soundtrack
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6 p-8">
+                <Textarea
+                  placeholder="Describe the music that will put you in the perfect wealth-building mindset..."
+                  value={customPrompt}
+                  onChange={(e) => setCustomPrompt(e.target.value)}
+                  className="min-h-[120px] bg-black/60 border border-gray-700 text-white placeholder:text-gray-500 focus:border-yellow-500/50 backdrop-blur-sm"
+                />
+
+                <Alert className="bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm">
+                  <Lightbulb className="h-5 w-5 text-emerald-400" />
+                  <AlertDescription className="text-emerald-300 font-medium">
+                    <strong className="text-emerald-400">PRO TIP:</strong>{" "}
+                    {successTips[Math.floor(Math.random() * successTips.length)]}
+                  </AlertDescription>
+                </Alert>
+              </CardContent>
+            </Card>
+
+            {recentGenerations.length > 0 && (
+              <Card className="bg-black/60 backdrop-blur-md border border-emerald-500/30 shadow-2xl shadow-emerald-500/10">
+                <CardHeader className="border-b border-emerald-500/20">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-black text-emerald-400 font-serif">
+                    <Clock className="w-6 h-6 text-emerald-400" />
+                    RECENT GENERATIONS
+                  </CardTitle>
+                  <CardDescription className="text-gray-300 text-lg">
+                    Your latest wealth music creations
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-8">
+                  <div className="space-y-4">
+                    {recentGenerations.slice(0, 3).map((track, index) => (
+                      <div
+                        key={track.id}
+                        className="flex items-center gap-4 p-4 rounded-xl bg-black/60 backdrop-blur-sm border border-gray-700 hover:border-yellow-500/50 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20"
+                        onClick={() => {
+                          const trackIndex = playlist.findIndex((p) => p.id === track.id)
+                          if (trackIndex !== -1) {
+                            setCurrentTrackIndex(trackIndex)
+                            setGeneratedTrack(track.url)
+                          }
+                        }}
+                      >
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-amber-600 text-black flex items-center justify-center font-bold shadow-lg shadow-yellow-500/30">
+                          {track.scenario?.icon || <Music className="w-5 h-5" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-bold text-white truncate font-serif">{track.title}</div>
+                          <div className="text-sm text-gray-400 font-mono">
+                            {track.createdAt.toLocaleDateString()} • {track.duration}s
+                          </div>
+                        </div>
+                        <Badge className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 font-mono font-bold">
+                          #{index + 1}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          <div className="space-y-8">
+            <Card className="bg-black/60 backdrop-blur-md border border-yellow-500/30 shadow-2xl shadow-yellow-500/10">
+              <CardHeader className="border-b border-yellow-500/20">
+                <CardTitle className="text-2xl font-black text-yellow-400 font-serif">MUSIC SETTINGS</CardTitle>
+                <CardDescription className="text-gray-300 text-lg">Customize your wealth soundtrack</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-8 p-8">
+                <div>
+                  <label className="text-lg font-bold mb-4 block text-white font-serif">
+                    Duration: <span className="text-yellow-400 font-mono">{duration[0]}s</span>
+                  </label>
+                  <Slider
+                    value={duration}
+                    onValueChange={setDuration}
+                    max={300}
+                    min={10}
+                    step={5}
+                    className="w-full [&_[role=slider]]:bg-yellow-500 [&_[role=slider]]:border-yellow-400"
+                  />
+                  <div className="flex justify-between text-sm text-gray-400 mt-2 font-mono">
+                    <span>Quick (10s)</span>
+                    <span>Standard (30s)</span>
+                    <span>Extended (5min)</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <label className="text-lg font-bold mb-4 block text-white font-serif">Music Style</label>
+                    <Select value={selectedStyle} onValueChange={setSelectedStyle}>
+                      <SelectTrigger className="bg-black/60 border border-gray-700 text-white backdrop-blur-sm">
+                        <SelectValue placeholder="Select style" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-black border border-gray-700 text-white">
+                        {musicStyles.map((style) => (
+                          <SelectItem key={style.value} value={style.value} className="hover:bg-gray-800">
+                            {style.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="text-lg font-bold mb-4 block text-white font-serif">Tempo</label>
+                    <Select value={selectedTempo} onValueChange={setSelectedTempo}>
+                      <SelectTrigger className="bg-black/60 border border-gray-700 text-white backdrop-blur-sm">
+                        <SelectValue placeholder="Select tempo" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-black border border-gray-700 text-white">
+                        {tempoRanges.map((tempo) => (
+                          <SelectItem key={tempo.value} value={tempo.value} className="hover:bg-gray-800">
+                            {tempo.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {isGenerating && (
+                  <div className="space-y-4 p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm">
+                    <div className="flex items-center justify-between text-lg font-bold">
+                      <span className="text-emerald-400 font-serif">Generating your wealth music...</span>
+                      <span className="text-yellow-400 font-mono">{generationProgress}%</span>
+                    </div>
+                    <Progress
+                      value={generationProgress}
+                      className="w-full h-3 bg-black/60 [&>div]:bg-gradient-to-r [&>div]:from-yellow-400 [&>div]:to-emerald-400"
+                    />
+                    <div className="text-center text-gray-300 font-light">
+                      Creating the perfect soundtrack for your success mindset
                     </div>
                   </div>
                 )}
 
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>{formatTime(currentTime)}</span>
-                    <div
-                      className="flex-1 h-3 bg-muted rounded-full cursor-pointer relative group"
-                      onClick={(e) => {
-                        const rect = e.currentTarget.getBoundingClientRect()
-                        const percentage = ((e.clientX - rect.left) / rect.width) * 100
-                        seekTo(percentage)
-                      }}
-                    >
-                      <div
-                        className="h-full bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full transition-all"
-                        style={{ width: `${totalDuration ? (currentTime / totalDuration) * 100 : 0}%` }}
-                      />
-                      <div
-                        className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-emerald-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{
-                          left: `${totalDuration ? (currentTime / totalDuration) * 100 : 0}%`,
-                          transform: "translateX(-50%) translateY(-50%)",
-                        }}
-                      />
-                    </div>
-                    <span>{formatTime(totalDuration)}</span>
+                <Button
+                  onClick={generateMusic}
+                  disabled={isGenerating || (!selectedScenario && !customPrompt.trim())}
+                  className="w-full bg-gradient-to-r from-yellow-500 via-yellow-400 to-amber-500 hover:from-yellow-600 hover:via-yellow-500 hover:to-amber-600 text-black font-black text-xl py-6 shadow-2xl shadow-yellow-500/30 transition-all duration-300 hover:shadow-yellow-500/50 font-serif tracking-wide"
+                  size="lg"
+                >
+                  {isGenerating ? (
+                    <>
+                      <Loader2 className="w-6 h-6 mr-3 animate-spin" />
+                      GENERATING YOUR WEALTH MUSIC...
+                    </>
+                  ) : (
+                    <>
+                      <Music className="w-6 h-6 mr-3" />
+                      GENERATE WEALTH MUSIC
+                    </>
+                  )}
+                </Button>
+
+                {selectedScenario && (
+                  <div className="text-center text-gray-300 font-light">
+                    Ready to generate:{" "}
+                    <span className="font-bold text-yellow-400 font-serif">{selectedScenario.title}</span>
                   </div>
-
-                  <div className="flex items-center justify-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsShuffling(!isShuffling)}
-                      className={isShuffling ? "text-emerald-500" : ""}
-                    >
-                      <Shuffle className="w-4 h-4" />
-                    </Button>
-
-                    <Button variant="ghost" size="sm" onClick={playPreviousTrack} disabled={playlist.length <= 1}>
-                      <SkipBack className="w-4 h-4" />
-                    </Button>
-
-                    <Button variant="ghost" size="sm" onClick={restartTrack}>
-                      <RotateCcw className="w-4 h-4" />
-                    </Button>
-
-                    <Button
-                      onClick={togglePlayback}
-                      size="lg"
-                      className="bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600"
-                    >
-                      {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                    </Button>
-
-                    <Button variant="ghost" size="sm" onClick={playNextTrack} disabled={playlist.length <= 1}>
-                      <SkipForward className="w-4 h-4" />
-                    </Button>
-
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsLooping(!isLooping)}
-                      className={isLooping ? "text-emerald-500" : ""}
-                    >
-                      <Repeat className="w-4 h-4" />
-                    </Button>
-
-                    <Button onClick={downloadTrack} variant="ghost" size="sm">
-                      <Download className="w-4 h-4" />
-                    </Button>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="sm" onClick={toggleMute}>
-                        {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-                      </Button>
-                      <Slider
-                        value={volume}
-                        onValueChange={(value) => {
-                          setVolume(value)
-                          if (value[0] > 0) setIsMuted(false)
-                        }}
-                        max={100}
-                        min={0}
-                        step={1}
-                        className="flex-1"
-                      />
-                      <span className="text-sm text-muted-foreground w-8">{volume[0]}%</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground w-12">Speed:</span>
-                      <Slider
-                        value={playbackRate}
-                        onValueChange={setPlaybackRate}
-                        max={2}
-                        min={0.5}
-                        step={0.1}
-                        className="flex-1"
-                      />
-                      <span className="text-sm text-muted-foreground w-8">{playbackRate[0]}x</span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Switch checked={showVisualizer} onCheckedChange={setShowVisualizer} />
-                        <span className="text-sm">Visualizer</span>
-                      </div>
-
-                      {playlist.length > 1 && (
-                        <Badge variant="secondary" className="text-xs">
-                          Track {currentTrackIndex + 1} of {playlist.length}
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <Badge
-                    variant="secondary"
-                    className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200"
-                  >
-                    Ready for Success
-                  </Badge>
-                </div>
+                )}
               </CardContent>
             </Card>
-          )}
+
+            {generatedTrack && (
+              <Card className="bg-black/60 backdrop-blur-md border border-emerald-500/30 shadow-2xl shadow-emerald-500/10">
+                <CardHeader className="border-b border-emerald-500/20">
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="text-2xl font-black text-emerald-400 font-serif">YOUR WEALTH SOUNDTRACK</span>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setIsFavorited(!isFavorited)}
+                        className={`${isFavorited ? "text-red-500" : "text-gray-400"} hover:text-red-400`}
+                      >
+                        <Heart className={`w-5 h-5 ${isFavorited ? "fill-current" : ""}`} />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={shareTrack}
+                        className="text-gray-400 hover:text-yellow-400"
+                      >
+                        <Share2 className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  </CardTitle>
+                  <CardDescription className="text-gray-300 text-lg">
+                    {playlist[currentTrackIndex]?.title || "Ready to boost your success mindset"}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-8 p-8">
+                  {showVisualizer && (
+                    <div className="h-32 bg-gradient-to-r from-yellow-500/20 via-emerald-500/20 to-yellow-500/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-yellow-500/20">
+                      <div className="flex items-end gap-1 h-20">
+                        {Array.from({ length: 24 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className="bg-gradient-to-t from-yellow-400 via-emerald-400 to-yellow-500 rounded-sm animate-pulse shadow-lg"
+                            style={{
+                              width: "4px",
+                              height: `${Math.random() * 100}%`,
+                              animationDelay: `${i * 0.1}s`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ... existing audio player controls with updated styling ... */}
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3 text-lg font-mono">
+                      <span className="text-yellow-400 font-bold">{formatTime(currentTime)}</span>
+                      <div
+                        className="flex-1 h-4 bg-black/60 rounded-full cursor-pointer relative group border border-gray-700"
+                        onClick={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect()
+                          const percentage = ((e.clientX - rect.left) / rect.width) * 100
+                          seekTo(percentage)
+                        }}
+                      >
+                        <div
+                          className="h-full bg-gradient-to-r from-yellow-400 to-emerald-400 rounded-full transition-all shadow-lg shadow-yellow-500/30"
+                          style={{ width: `${totalDuration ? (currentTime / totalDuration) * 100 : 0}%` }}
+                        />
+                        <div
+                          className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-yellow-400 border-2 border-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                          style={{
+                            left: `${totalDuration ? (currentTime / totalDuration) * 100 : 0}%`,
+                            transform: "translateX(-50%) translateY(-50%)",
+                          }}
+                        />
+                      </div>
+                      <span className="text-yellow-400 font-bold">{formatTime(totalDuration)}</span>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-3">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setIsShuffling(!isShuffling)}
+                        className={`${isShuffling ? "text-emerald-400" : "text-gray-400"} hover:text-emerald-300`}
+                      >
+                        <Shuffle className="w-5 h-5" />
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={playPreviousTrack}
+                        disabled={playlist.length <= 1}
+                        className="text-gray-400 hover:text-white disabled:text-gray-600"
+                      >
+                        <SkipBack className="w-5 h-5" />
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={restartTrack}
+                        className="text-gray-400 hover:text-yellow-400"
+                      >
+                        <RotateCcw className="w-5 h-5" />
+                      </Button>
+
+                      <Button
+                        onClick={togglePlayback}
+                        size="lg"
+                        className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-amber-500 hover:from-yellow-600 hover:via-yellow-500 hover:to-amber-600 text-black font-black text-xl p-6 shadow-2xl shadow-yellow-500/40 transition-all duration-300 hover:shadow-yellow-500/60"
+                      >
+                        {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={playNextTrack}
+                        disabled={playlist.length <= 1}
+                        className="text-gray-400 hover:text-white disabled:text-gray-600"
+                      >
+                        <SkipForward className="w-5 h-5" />
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setIsLooping(!isLooping)}
+                        className={`${isLooping ? "text-emerald-400" : "text-gray-400"} hover:text-emerald-300`}
+                      >
+                        <Repeat className="w-5 h-5" />
+                      </Button>
+
+                      <Button
+                        onClick={downloadTrack}
+                        variant="ghost"
+                        size="sm"
+                        className="text-gray-400 hover:text-yellow-400"
+                      >
+                        <Download className="w-5 h-5" />
+                      </Button>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={toggleMute}
+                          className="text-gray-400 hover:text-white"
+                        >
+                          {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                        </Button>
+                        <Slider
+                          value={volume}
+                          onValueChange={(value) => {
+                            setVolume(value)
+                            if (value[0] > 0) setIsMuted(false)
+                          }}
+                          max={100}
+                          min={0}
+                          step={1}
+                          className="flex-1 [&_[role=slider]]:bg-yellow-500 [&_[role=slider]]:border-yellow-400"
+                        />
+                        <span className="text-yellow-400 font-mono font-bold w-12">{volume[0]}%</span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="text-gray-400 font-mono w-16">Speed:</span>
+                        <Slider
+                          value={playbackRate}
+                          onValueChange={setPlaybackRate}
+                          max={2}
+                          min={0.5}
+                          step={0.1}
+                          className="flex-1 [&_[role=slider]]:bg-emerald-500 [&_[role=slider]]:border-emerald-400"
+                        />
+                        <span className="text-emerald-400 font-mono font-bold w-12">{playbackRate[0]}x</span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Switch
+                            checked={showVisualizer}
+                            onCheckedChange={setShowVisualizer}
+                            className="data-[state=checked]:bg-yellow-500"
+                          />
+                          <span className="text-white font-bold font-serif">Visualizer</span>
+                        </div>
+
+                        {playlist.length > 1 && (
+                          <Badge className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono font-bold">
+                            Track {currentTrackIndex + 1} of {playlist.length}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="text-center">
+                    <Badge className="bg-gradient-to-r from-yellow-500/20 to-emerald-500/20 text-yellow-400 border border-yellow-500/30 font-black text-lg px-6 py-2 font-serif tracking-wider">
+                      READY FOR SUCCESS
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </div>
