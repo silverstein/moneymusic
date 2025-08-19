@@ -202,8 +202,9 @@ export default function Home() {
         return;
       }
 
-      // Create shareable link
-      const shareUrl = await shareManager.createShareableLink(currentGen, blob);
+      // Pass the R2 URL if it exists (for permanent storage)
+      const r2Url = currentGen.audioUrl?.startsWith('http') ? currentGen.audioUrl : undefined;
+      const shareUrl = await shareManager.createShareableLink(currentGen, blob, r2Url);
 
       // Copy to clipboard
       await navigator.clipboard.writeText(shareUrl);
@@ -222,7 +223,9 @@ export default function Home() {
         return;
       }
 
-      const shareUrl = await shareManager.createShareableLink(generation, blob);
+      // Pass the R2 URL if it exists (for permanent storage)
+      const r2Url = generation.audioUrl?.startsWith('http') ? generation.audioUrl : undefined;
+      const shareUrl = await shareManager.createShareableLink(generation, blob, r2Url);
       await navigator.clipboard.writeText(shareUrl);
       toast.success('Share link copied to clipboard!');
     } catch (error) {

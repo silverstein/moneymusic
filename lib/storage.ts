@@ -8,18 +8,24 @@ export const storageManager = {
     const stored = localStorage.getItem(STORAGE_KEY);
     let generations = stored ? JSON.parse(stored) : [];
 
-    // Remove audioUrl as we'll store it separately in IndexedDB
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { audioUrl, ...metadata } = generation;
+    // Keep the audioUrl if it's an R2 URL (permanent storage)
+    // Only remove blob URLs since those are stored in IndexedDB
+    const generationToSave = generation.audioUrl?.startsWith('http') 
+      ? generation // Keep R2 URL
+      : (() => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { audioUrl, ...metadata } = generation;
+          return metadata;
+        })();
 
     // Add or update generation
     const existingIndex = generations.findIndex(
       (g: MusicGeneration) => g.id === generation.id
     );
     if (existingIndex >= 0) {
-      generations[existingIndex] = metadata;
+      generations[existingIndex] = generationToSave;
     } else {
-      generations.unshift(metadata);
+      generations.unshift(generationToSave);
     }
 
     // Keep only last 50 generations
