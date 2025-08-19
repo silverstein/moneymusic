@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 :root {
   --term-bg: #000000;
   --term-fg: #FFA500;
@@ -15,7 +12,7 @@
   --term-scanline: rgba(255, 165, 0, 0.03);
   --term-cursor: #FFA500;
   
-  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --font-mono: var(--font-ibm-plex-mono), var(--font-jetbrains-mono), 'Fira Code', 'Courier New', monospace;
 }
 
 * {
