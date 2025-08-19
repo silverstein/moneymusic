@@ -367,7 +367,7 @@ export function CraftStudio({
             </button>
           </div>
           <div className="rounded-lg bg-zinc-900/50 p-3">
-            <p className="text-xs text-zinc-900 italic leading-relaxed">
+            <p className="text-xs text-[var(--term-accent)] italic leading-relaxed">
               {currentPrompt}
             </p>
           </div>
