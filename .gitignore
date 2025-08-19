@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scripts with credentials
+scripts/generate-*.js
+scripts/*credentials*
