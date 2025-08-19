@@ -20,26 +20,53 @@ export default function SharePage() {
   useEffect(() => {
     if (shareId) {
       const sharedTrack = shareManager.getSharedTrack(shareId);
-      if (sharedTrack && sharedTrack.audioData) {
-        const blob = base64ToBlob(sharedTrack.audioData);
-        const url = URL.createObjectURL(blob);
-        setAudioUrl(url);
-        setTrack(sharedTrack);
+      if (sharedTrack) {
+        // Check if we have an R2 URL first
+        if (sharedTrack.audioUrl) {
+          setAudioUrl(sharedTrack.audioUrl);
+          setTrack(sharedTrack);
+        } else if (sharedTrack.audioData) {
+          // Fallback to base64 data if no R2 URL
+          const blob = base64ToBlob(sharedTrack.audioData);
+          const url = URL.createObjectURL(blob);
+          setAudioUrl(url);
+          setTrack(sharedTrack);
+        }
       }
       setLoading(false);
     }
   }, [shareId]);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!(audioUrl && track)) return;
 
-    const a = document.createElement('a');
-    a.href = audioUrl;
-    a.download = `${track.title.replace(/\s+/g, '-')}-wealthwave.mp3`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    toast.success('Track downloaded!');
+    try {
+      // If it's an R2 URL, fetch and download
+      if (audioUrl.startsWith('http')) {
+        const response = await fetch(audioUrl);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${track.title.replace(/\s+/g, '-')}-wealthwave.mp3`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else {
+        // Local blob URL, download directly
+        const a = document.createElement('a');
+        a.href = audioUrl;
+        a.download = `${track.title.replace(/\s+/g, '-')}-wealthwave.mp3`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      toast.success('Track downloaded!');
+    } catch (error) {
+      console.error('Download failed:', error);
+      toast.error('Failed to download track');
+    }
   };
 
   const handleShare = () => {
