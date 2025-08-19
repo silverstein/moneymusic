@@ -12,7 +12,7 @@
   --term-scanline: rgba(255, 165, 0, 0.03);
   --term-cursor: #FFA500;
   
-  --font-mono: var(--font-ibm-plex-mono), var(--font-jetbrains-mono), 'Fira Code', 'Courier New', monospace;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
 * {
