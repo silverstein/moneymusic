@@ -18,15 +18,17 @@ AI-powered wealth mindset music generator. Transform your daily activities into 
 
 ## Tech Stack
 
-- **Next.js 15.4.6** - Latest React framework
+- **Next.js 15.4.6**
 - **TypeScript** - Type-safe development
-- **Tailwind CSS** - Custom luxury design system
-- **Framer Motion** - Smooth animations
-- **ElevenLabs API** - AI music generation
-- **Zustand** - State management
-- **Radix UI** - Accessible components
-- **Cloudflare R2** - Cloud storage (optional)
-- **IndexedDB** - Local audio storage
+- **Tailwind CSS v4**
+- **shadcn/ui** - Component library
+- **Ultracite 5.2.3** - AI-powered development assistantAI-ready formatter that helps you write and generate code faster
+- **ElevenLabs Music API** - AI music generation
+- **Framer Motion** - Animation library
+- **Zustand** - Lightweight state management
+- **Radix UI** - Accessible, unstyled component primitives
+- **Lucide React** - Icons
+- **Terminal UI Components** - Custom terminal-style ticker and layout components
 
 ## Setup
 
@@ -75,4 +77,4 @@ AI-powered wealth mindset music generator. Transform your daily activities into 
 
 ## License
 
-MIT - Build your wealth empire!
+MIT - Build your wealth empire
