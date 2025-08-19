@@ -12,12 +12,21 @@ interface CraftStudioProps {
 }
 
 const genres = [
+  { id: 'lofi', label: 'Lo-Fi', icon: '☕' },
+  { id: 'synthwave', label: 'Synthwave', icon: '🌆' },
+  { id: 'phonk', label: 'Phonk', icon: '👹' },
+  { id: 'vaporwave', label: 'Vaporwave', icon: '🌴' },
+  { id: '80s', label: '80s Retro', icon: '🕹️' },
+  { id: '90s', label: '90s Nostalgia', icon: '💿' },
   { id: 'hip-hop', label: 'Hip-Hop', icon: '🎤' },
   { id: 'electronic', label: 'Electronic', icon: '🎹' },
+  { id: 'dnb', label: 'Drum & Bass', icon: '🥁' },
+  { id: 'house', label: 'House', icon: '🏠' },
   { id: 'classical', label: 'Classical', icon: '🎻' },
   { id: 'jazz', label: 'Jazz', icon: '🎷' },
   { id: 'rock', label: 'Rock', icon: '🎸' },
   { id: 'ambient', label: 'Ambient', icon: '🌊' },
+  { id: 'cinematic', label: 'Cinematic', icon: '🎬' },
 ];
 
 const vibes = [
@@ -57,6 +66,7 @@ export function CraftStudio({
   const [blendWithCustom, setBlendWithCustom] = useState<boolean>(
     !!customPrompt
   );
+  const [instrumentalOnly, setInstrumentalOnly] = useState<boolean>(false);
 
   const generatePrompt = () => {
     if (!(selectedGenre && selectedVibe)) {
@@ -86,30 +96,43 @@ export function CraftStudio({
       prompt += ` Perfect for ${activityLabel}.`;
     }
 
-    // Add technical details based on selections
-    if (selectedGenre === 'hip-hop') {
-      prompt +=
-        ' Include hard-hitting 808s, trap hi-hats, and motivational energy.';
+    // Add genre-specific enhancements based on ElevenLabs best practices
+    if (selectedGenre === 'lofi') {
+      prompt += ' Dusty vinyl crackle, warm tape saturation, jazzy chords, mellow piano, 85 BPM, nostalgic and cozy.';
+    } else if (selectedGenre === 'synthwave') {
+      prompt += ' Analog synths, gated reverb drums, neon atmosphere, arpeggiated sequences, 110 BPM, retro-futuristic.';
+    } else if (selectedGenre === 'phonk') {
+      prompt += ' Memphis samples, cowbell rhythms, distorted 808s, dark atmosphere, 130 BPM, underground vibes.';
+    } else if (selectedGenre === 'vaporwave') {
+      prompt += ' Slowed samples, chorus effects, mall ambience, nostalgic synths, 95 BPM, dreamy aesthetic.';
+    } else if (selectedGenre === '80s') {
+      prompt += ' DX7 electric piano, LinnDrum beats, power chords, big reverb, 120 BPM, triumphant energy.';
+    } else if (selectedGenre === '90s') {
+      prompt += ' Classic hip-hop breaks, warm rhodes, vinyl samples, boom bap drums, 90 BPM, golden era vibes.';
+    } else if (selectedGenre === 'hip-hop') {
+      prompt += ' Hard-hitting 808s, crisp hi-hats, motivational energy, modern production, 140 BPM.';
     } else if (selectedGenre === 'electronic') {
-      prompt +=
-        ' Feature modern synths, driving basslines, and euphoric builds.';
+      prompt += ' Modern synths, driving basslines, euphoric builds, side-chain compression, 128 BPM.';
+    } else if (selectedGenre === 'dnb') {
+      prompt += ' Breakbeat drums, sub bass, atmospheric pads, liquid elements, 174 BPM, high energy.';
+    } else if (selectedGenre === 'house') {
+      prompt += ' Four-on-floor kick, disco strings, filtered loops, uplifting progression, 124 BPM.';
     } else if (selectedGenre === 'classical') {
-      prompt +=
-        ' Incorporate orchestral strings, brass sections, and cinematic progressions.';
+      prompt += ' Orchestral strings, brass sections, cinematic progressions, dynamic swells, 100 BPM.';
     } else if (selectedGenre === 'jazz') {
-      prompt +=
-        ' Add sophisticated piano, smooth saxophone, and complex harmonies.';
+      prompt += ' Sophisticated piano, smooth saxophone, walking bass, brush drums, 120 BPM.';
     } else if (selectedGenre === 'rock') {
-      prompt +=
-        ' Include powerful guitar riffs, driving drums, and anthemic energy.';
+      prompt += ' Powerful guitar riffs, driving drums, anthemic energy, power chords, 140 BPM.';
     } else if (selectedGenre === 'ambient') {
-      prompt +=
-        ' Use atmospheric pads, subtle textures, and spacious soundscapes.';
+      prompt += ' Atmospheric pads, subtle textures, spacious soundscapes, evolving drones, 60 BPM.';
+    } else if (selectedGenre === 'cinematic') {
+      prompt += ' Epic orchestration, hybrid sound design, emotional builds, trailer music style, 90 BPM.';
     }
 
-    // Add BPM based on energy
-    const bpm = 60 + energy * 12; // 72-180 BPM range
-    prompt += ` Tempo around ${bpm} BPM.`;
+    // Add instrumental-only if selected (based on ElevenLabs best practices)
+    if (instrumentalOnly) {
+      prompt += ' Instrumental only, no vocals.';
+    }
 
     return prompt;
   };
@@ -139,8 +162,8 @@ export function CraftStudio({
       initial={{ opacity: 0, height: 0 }}
     >
       <div className="mb-4 flex items-center gap-2">
-        <div className="gold-gradient flex h-10 w-10 items-center justify-center rounded-lg">
-          <Palette className="h-5 w-5 text-black" />
+        <div className="bg-gradient-to-r from-amber-600 to-amber-400 flex h-10 w-10 items-center justify-center rounded-lg">
+          <Palette className="h-5 w-5 text-foreground" />
         </div>
         <div className="flex-1">
           <h3 className="gold-text font-bold text-xl">Craft Your Vibe</h3>
@@ -150,7 +173,7 @@ export function CraftStudio({
         </div>
         {isValid && (
           <button
-            className="gold-gradient flex items-center gap-2 rounded-lg px-6 py-2.5 font-bold text-black transition-transform hover:scale-105"
+            className="bg-gradient-to-r from-amber-600 to-amber-400 flex items-center gap-2 rounded-lg px-6 py-2.5 font-bold text-black transition-transform hover:scale-105"
             onClick={handleGenerateMusic}
           >
             <Sparkles className="h-4 w-4" />
@@ -182,6 +205,26 @@ export function CraftStudio({
         </div>
       )}
 
+      {/* Instrumental Only Toggle */}
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-3">
+        <label className="flex cursor-pointer items-center gap-3">
+          <input
+            checked={instrumentalOnly}
+            className="h-4 w-4 accent-amber-500"
+            onChange={(e) => setInstrumentalOnly(e.target.checked)}
+            type="checkbox"
+          />
+          <div className="flex-1">
+            <div className="font-semibold text-zinc-300 text-sm">
+              Instrumental only
+            </div>
+            <div className="mt-0.5 text-xs text-zinc-500">
+              No vocals, pure instrumental vibes
+            </div>
+          </div>
+        </label>
+      </div>
+
       {/* Genre Selection */}
       <div>
         <div className="mb-3 flex items-center gap-2">
@@ -197,7 +240,7 @@ export function CraftStudio({
                 'rounded-lg border p-3 transition-all',
                 'hover:scale-105 hover:border-amber-500',
                 selectedGenre === genre.id
-                  ? 'border-amber-500 bg-amber-500/20 text-amber-500'
+                  ? 'border-amber-500 bg-amber-900 text-amber-400 ring-2 ring-amber-500'
                   : 'border-zinc-800 bg-zinc-900 text-zinc-400'
               )}
               key={genre.id}
@@ -225,7 +268,7 @@ export function CraftStudio({
                 'relative overflow-hidden rounded-lg border p-3 transition-all',
                 'hover:scale-105',
                 selectedVibe === vibe.id
-                  ? 'border-amber-500'
+                  ? 'border-amber-500 ring-2 ring-amber-500'
                   : 'border-zinc-800'
               )}
               key={vibe.id}
@@ -233,11 +276,15 @@ export function CraftStudio({
             >
               <div
                 className={cn(
-                  'absolute inset-0 bg-gradient-to-br opacity-20',
-                  vibe.color
+                  'absolute inset-0 bg-gradient-to-br',
+                  vibe.color,
+                  selectedVibe === vibe.id ? 'opacity-40' : 'opacity-20'
                 )}
               />
-              <div className="relative font-medium text-sm">{vibe.label}</div>
+              <div className={cn(
+                'relative font-medium text-sm',
+                selectedVibe === vibe.id ? 'text-white' : ''
+              )}>{vibe.label}</div>
             </button>
           ))}
         </div>
@@ -253,9 +300,9 @@ export function CraftStudio({
           <span className="font-bold text-amber-500 text-sm">{energy}/10</span>
         </div>
         <div className="relative">
-          <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
+          <div className="h-2 overflow-hidden rounded-full bg-zinc-700 border border-zinc-600">
             <div
-              className="gold-gradient h-full transition-all"
+              className="h-full transition-all bg-gradient-to-r from-amber-600 to-amber-400"
               style={{ width: `${energy * 10}%` }}
             />
           </div>
@@ -286,10 +333,10 @@ export function CraftStudio({
             <button
               className={cn(
                 'rounded-lg border p-2 text-center transition-all',
-                'hover:scale-105 hover:border-amber-500/50',
+                'hover:scale-105 hover:border-amber-500',
                 selectedActivity === activity.id
-                  ? 'border-amber-500/50 bg-amber-500/10'
-                  : 'border-zinc-800 bg-zinc-900/50'
+                  ? 'border-amber-500 bg-amber-900 text-amber-400 ring-2 ring-amber-500'
+                  : 'border-zinc-800 bg-zinc-900 text-zinc-400'
               )}
               key={activity.id}
               onClick={() =>
@@ -320,7 +367,7 @@ export function CraftStudio({
             </button>
           </div>
           <div className="rounded-lg bg-zinc-900/50 p-3">
-            <p className="text-xs text-zinc-300 italic leading-relaxed">
+            <p className="text-xs text-zinc-900 italic leading-relaxed">
               {currentPrompt}
             </p>
           </div>

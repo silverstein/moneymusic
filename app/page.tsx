@@ -369,25 +369,25 @@ export default function Home() {
                     </div>
                     <div className="flex items-center gap-2">
                       <button
-                        className="h-8 w-8 flex items-center justify-center border border-[var(--term-accent)] text-[var(--term-accent)] hover:bg-[var(--term-accent)] hover:text-[var(--term-bg)] transition-colors"
+                        className="h-8 w-8 flex items-center justify-center border border-[var(--term-accent)] text-[var(--term-accent)] bg-transparent hover:bg-[var(--term-accent)] hover:text-[var(--term-bg)] transition-colors"
                         onClick={() => loadSavedGeneration(gen)}
                         title="Play"
                       >
-                        <Play className="h-4 w-4 ml-0.5" />
+                        <Play className="h-4 w-4 ml-0.5 flex-shrink-0" />
                       </button>
                       <button
-                        className="h-8 w-8 flex items-center justify-center border border-[var(--term-accent)] text-[var(--term-accent)] hover:bg-[var(--term-accent)] hover:text-[var(--term-bg)] transition-colors"
+                        className="h-8 w-8 flex items-center justify-center border border-[var(--term-accent)] text-[var(--term-accent)] bg-transparent hover:bg-[var(--term-accent)] hover:text-[var(--term-bg)] transition-colors"
                         onClick={() => shareGeneration(gen)}
                         title="Share"
                       >
-                        <Share2 className="h-4 w-4" />
+                        <Share2 className="h-4 w-4 flex-shrink-0" />
                       </button>
                       <button
-                        className="h-8 w-8 flex items-center justify-center border border-[var(--term-error)] text-[var(--term-error)] hover:bg-[var(--term-error)] hover:text-[var(--term-bg)] transition-colors"
+                        className="h-8 w-8 flex items-center justify-center border border-[var(--term-error)] text-[var(--term-error)] bg-transparent hover:bg-[var(--term-error)] hover:text-[var(--term-bg)] transition-colors"
                         onClick={() => deleteSavedGeneration(gen.id)}
                         title="Delete"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4 flex-shrink-0" />
                       </button>
                     </div>
                   </div>

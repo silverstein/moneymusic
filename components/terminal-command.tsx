@@ -111,7 +111,7 @@ export function TerminalCommand({ open, onOpenChange }: TerminalCommandProps) {
                 disabled={isGenerating}
               >
                 <span className={terminalStyles.accent}>GEN</span>
-                <span>{scenario.id.toUpperCase().replace('-', '_')}</span>
+                <span className={terminalStyles.text}>{scenario.id.toUpperCase().replace('-', '_')}</span>
                 <span className={terminalStyles.dim}>- {scenario.title}</span>
               </Command.Item>
             ))}
@@ -129,7 +129,7 @@ export function TerminalCommand({ open, onOpenChange }: TerminalCommandProps) {
                 className={cn(terminalStyles.command, 'mx-2 flex items-center gap-2')}
               >
                 <span className={terminalStyles.accent}>THM</span>
-                <span>{theme.name}</span>
+                <span className={terminalStyles.text}>{theme.name}</span>
                 <span className={terminalStyles.dim}>- {theme.description}</span>
               </Command.Item>
             ))}
@@ -145,7 +145,7 @@ export function TerminalCommand({ open, onOpenChange }: TerminalCommandProps) {
               className={cn(terminalStyles.command, 'mx-2')}
             >
               <span className={terminalStyles.accent}>SYS</span>
-              <span>HELP</span>
+              <span className={terminalStyles.text}>HELP</span>
               <span className={terminalStyles.dim}>- Show commands</span>
             </Command.Item>
             <Command.Item
@@ -154,7 +154,7 @@ export function TerminalCommand({ open, onOpenChange }: TerminalCommandProps) {
               className={cn(terminalStyles.command, 'mx-2')}
             >
               <span className={terminalStyles.accent}>SYS</span>
-              <span>CLEAR</span>
+              <span className={terminalStyles.text}>CLEAR</span>
               <span className={terminalStyles.dim}>- Clear generation history</span>
             </Command.Item>
           </Command.Group>
