@@ -1,57 +1,89 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from 'next/server';
+import { r2Manager } from '@/lib/r2';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const { prompt, duration } = await request.json()
+    const { prompt, duration = 30_000 } = await req.json();
 
-    if (!process.env.ELEVENLABS_API_KEY) {
-      return NextResponse.json({ error: "ElevenLabs API key not configured" }, { status: 500 })
+    if (!prompt) {
+      return NextResponse.json(
+        { error: 'Prompt is required' },
+        { status: 400 }
+      );
     }
 
-    const response = await fetch("https://api.elevenlabs.io/v1/music/compose", {
-      method: "POST",
+    if (duration < 10_000 || duration > 300_000) {
+      return NextResponse.json(
+        { error: 'Duration must be between 10 and 300 seconds' },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.ELEVENLABS_API_KEY) {
+      return NextResponse.json(
+        { error: 'ElevenLabs API key not configured' },
+        { status: 500 }
+      );
+    }
+
+    // Call the actual ElevenLabs Music API
+    const response = await fetch('https://api.elevenlabs.io/v1/music', {
+      method: 'POST',
       headers: {
-        "xi-api-key": process.env.ELEVENLABS_API_KEY,
-        "Content-Type": "application/json",
+        'xi-api-key': process.env.ELEVENLABS_API_KEY,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         prompt,
         music_length_ms: duration,
+        model_id: 'music_v1',
       }),
-    })
+    });
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.error("ElevenLabs API error:", errorText)
-
-      try {
-        const errorData = JSON.parse(errorText)
-        if (errorData.detail?.status === "limited_access") {
-          return NextResponse.json(
-            {
-              error: "paid_plan_required",
-              message: "Music API requires a paid ElevenLabs plan. Please upgrade your account to generate music.",
-            },
-            { status: 402 },
-          )
-        }
-      } catch (parseError) {
-        // If we can't parse the error, fall back to generic message
-      }
-
-      return NextResponse.json({ error: "Failed to generate music" }, { status: response.status })
+      const errorData = await response.text();
+      console.error('ElevenLabs API error:', response.status, errorData);
+      return NextResponse.json(
+        { error: `Music generation failed: ${response.statusText}` },
+        { status: response.status }
+      );
     }
 
-    const audioBuffer = await response.arrayBuffer()
+    // Get the audio data from the response
+    const audioBuffer = await response.arrayBuffer();
 
+    // Check if R2 is configured and upload if available
+    let r2Url: string | undefined;
+    if (
+      process.env.R2_ACCESS_KEY_ID &&
+      process.env.R2_ACCESS_KEY_ID !== 'your-access-key'
+    ) {
+      try {
+        const buffer = Buffer.from(audioBuffer);
+        r2Url = await r2Manager.uploadAudio(buffer);
+        console.log('Audio uploaded to R2:', r2Url);
+      } catch (uploadError) {
+        console.error('Failed to upload to R2:', uploadError);
+        // Continue without R2 upload - fallback to direct response
+      }
+    }
+
+    // Return the audio file with optional R2 URL in header
     return new NextResponse(audioBuffer, {
       headers: {
-        "Content-Type": "audio/mpeg",
-        "Content-Disposition": 'attachment; filename="wealth-music.mp3"',
+        'Content-Type': response.headers.get('content-type') || 'audio/mpeg',
+        'Content-Length': audioBuffer.byteLength.toString(),
+        ...(r2Url && { 'X-R2-URL': r2Url }),
       },
-    })
+    });
   } catch (error) {
-    console.error("Error generating music:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    console.error('Music generation error:', error);
+    return NextResponse.json(
+      {
+        error: 'Failed to generate music',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 }
+    );
   }
 }

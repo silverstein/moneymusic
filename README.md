@@ -1,30 +1,78 @@
-# Elevenlabs music API
+# WealthWave 💰🎵
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+AI-powered wealth mindset music generator. Transform your daily activities into wealth-building experiences with custom-generated music designed to reprogram your mind for success.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/evil-genius-laboratory/v0-elevenlabs-music-api)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/amBpbR9dqqg)
+## Features
 
-## Overview
+- 🎯 **8 Wealth Scenarios**: From "Morning Mogul" to "Wealth Warrior" - music for every money-making moment
+- 🎵 **AI Music Generation**: Powered by ElevenLabs' cutting-edge music API
+- 💎 **Luxury Design**: Black & gold aesthetic that screams success (no generic purple gradients!)
+- 🎧 **Custom Player**: Built-in music player with volume control and progress tracking
+- 🎨 **Craft Studio**: Fine-tune your vibe with genre, energy, and custom prompts
+- ☁️ **Cloud Storage**: Permanent storage with Cloudflare R2 (optional)
+- 📚 **Music Library**: Save and manage all your generated tracks
+- 🔗 **Shareable Links**: Share your wealth frequencies with others
+- 💾 **Local Backup**: IndexedDB storage for offline access
+- ⚡ **Instant Generation**: 10 seconds to 5 minutes of wealth-focused music
+- 🧠 **Mindset Programming**: Music designed to activate your millionaire mindset
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Tech Stack
 
-## Deployment
+- **Next.js 15.4.6** - Latest React framework
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Custom luxury design system
+- **Framer Motion** - Smooth animations
+- **ElevenLabs API** - AI music generation
+- **Zustand** - State management
+- **Radix UI** - Accessible components
+- **Cloudflare R2** - Cloud storage (optional)
+- **IndexedDB** - Local audio storage
 
-Your project is live at:
+## Setup
 
-**[https://vercel.com/evil-genius-laboratory/v0-elevenlabs-music-api](https://vercel.com/evil-genius-laboratory/v0-elevenlabs-music-api)**
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   bun install
+   ```
 
-## Build your app
+3. Create `.env.local` with your API keys:
+   ```bash
+   # Required
+   ELEVENLABS_API_KEY=your_elevenlabs_api_key
+   
+   # Optional - for cloud storage
+   R2_ACCOUNT_ID=your_cloudflare_account_id
+   R2_ACCESS_KEY_ID=your_r2_access_key
+   R2_SECRET_ACCESS_KEY=your_r2_secret_key
+   R2_BUCKET_NAME=your_bucket_name
+   R2_PUBLIC_URL=https://your-custom-domain.com
+   ```
 
-Continue building your app on:
+4. Run the development server:
+   ```bash
+   bun dev
+   ```
 
-**[https://v0.app/chat/projects/amBpbR9dqqg](https://v0.app/chat/projects/amBpbR9dqqg)**
+5. Open [http://localhost:3000](http://localhost:3000)
 
-## How It Works
+## Wealth Scenarios
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+- **Morning Mogul**: Start your day with titan energy
+- **Deal Closer**: Channel your inner closer
+- **Focus Flow**: Deep work for empire building
+- **Victory Lap**: Celebrate your wins
+- **Night Hustle**: Build while others sleep
+- **Abundance Meditation**: Reprogram your wealth consciousness
+- **Power Commute**: Transform your drive time
+- **Wealth Warrior**: Gym session for financial gladiators
+
+## API Requirements
+
+- Paid ElevenLabs account required
+- Music duration: 10 seconds to 5 minutes
+- Supports multilingual prompts
+
+## License
+
+MIT - Build your wealth empire!
