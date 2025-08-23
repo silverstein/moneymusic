@@ -105,4 +105,81 @@ export const r2Manager = {
     const urlObj = new URL(url);
     return urlObj.pathname.substring(1); // Remove leading slash
   },
+
+  /**
+   * Check whether R2 environment is fully configured with non-placeholder values
+   */
+  isConfigured(): boolean {
+    const {
+      R2_ACCOUNT_ID,
+      R2_ACCESS_KEY_ID,
+      R2_SECRET_ACCESS_KEY,
+      R2_BUCKET_NAME,
+      R2_PUBLIC_URL,
+    } = process.env;
+
+    const invalids = new Set([
+      'your_cloudflare_account_id',
+      'your_r2_access_key',
+      'your_r2_access_key_id',
+      'your_r2_secret_key',
+      'your_bucket_name',
+      'https://your-custom-domain.com',
+    ]);
+
+    const values = [
+      R2_ACCOUNT_ID,
+      R2_ACCESS_KEY_ID,
+      R2_SECRET_ACCESS_KEY,
+      R2_BUCKET_NAME,
+      R2_PUBLIC_URL,
+    ];
+
+    if (values.some((v) => !v || v.trim() === '')) return false;
+    if (values.some((v) => v && invalids.has(v))) return false;
+    return true;
+  },
+
+  /**
+   * Verify access by performing a tiny put/delete cycle.
+   */
+  async verifyAccess(): Promise<{
+    ok: boolean;
+    message: string;
+    details?: string;
+    urlExample?: string;
+  }> {
+    if (!this.isConfigured()) {
+      return { ok: false, message: 'R2 not fully configured' };
+    }
+    const key = `health/r2-check-${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2)}.txt`;
+    try {
+      await R2.send(
+        new PutObjectCommand({
+          Bucket: process.env.R2_BUCKET_NAME!,
+          Key: key,
+          Body: new Uint8Array(0),
+          ContentType: 'text/plain',
+        })
+      );
+      // Clean up
+      await R2.send(
+        new DeleteObjectCommand({
+          Bucket: process.env.R2_BUCKET_NAME!,
+          Key: key,
+        })
+      );
+      const urlExample = `${process.env.R2_PUBLIC_URL}/${key}`;
+      return { ok: true, message: 'Put/Delete succeeded', urlExample };
+    } catch (e) {
+      const err = e as Error & { Code?: string; name?: string };
+      return {
+        ok: false,
+        message: 'Access check failed',
+        details: `${err.name || ''} ${'message' in err ? (err as any).message : ''}`.trim(),
+      };
+    }
+  },
 };

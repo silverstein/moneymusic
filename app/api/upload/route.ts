@@ -1,13 +1,38 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { r2Manager } from '@/lib/r2';
+import { buildRateKey, rateLimit } from '@/lib/rate-limit';
+import { getClientIp, isUserAgentBot, verifySecret, verifyVercelBotId } from '@/lib/abuse';
 
 export async function POST(req: NextRequest) {
   try {
+    // Abuse protection
+    if (!verifySecret(req)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+    if (!verifyVercelBotId(req)) {
+      return NextResponse.json({ error: 'Verification required' }, { status: 403 });
+    }
+    if (isUserAgentBot(req)) {
+      return NextResponse.json({ error: 'Bots not allowed' }, { status: 403 });
+    }
+
+    const ip = getClientIp(req);
+    const rateKey = buildRateKey(['upload', ip]);
+    const { ok, remaining, resetAt } = rateLimit({ key: rateKey, limit: 20, windowMs: 60_000 });
+    if (!ok) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded' },
+        {
+          status: 429,
+          headers: {
+            'RateLimit-Remaining': String(remaining),
+            'RateLimit-Reset': String(resetAt),
+          },
+        }
+      );
+    }
     // Check if R2 is configured
-    if (
-      !process.env.R2_ACCESS_KEY_ID ||
-      process.env.R2_ACCESS_KEY_ID === 'your-access-key'
-    ) {
+    if (!r2Manager.isConfigured()) {
       return NextResponse.json(
         { error: 'R2 storage not configured' },
         { status: 503 }

@@ -1,8 +1,37 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { r2Manager } from '@/lib/r2';
+import { buildRateKey, rateLimit } from '@/lib/rate-limit';
+import { getClientIp, isUserAgentBot, verifySecret, verifyVercelBotId } from '@/lib/abuse';
 
 export async function POST(req: NextRequest) {
   try {
+    // Abuse protection: secret, Bot ID, UA bot heuristic
+    if (!verifySecret(req)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+    if (!verifyVercelBotId(req)) {
+      return NextResponse.json({ error: 'Verification required' }, { status: 403 });
+    }
+    if (isUserAgentBot(req)) {
+      return NextResponse.json({ error: 'Bots not allowed' }, { status: 403 });
+    }
+
+    // Rate limit per IP and route
+    const ip = getClientIp(req);
+    const key = buildRateKey(['gen', ip]);
+    const { ok, remaining, resetAt } = rateLimit({ key, limit: 8, windowMs: 60_000 });
+    if (!ok) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded' },
+        {
+          status: 429,
+          headers: {
+            'RateLimit-Remaining': String(remaining),
+            'RateLimit-Reset': String(resetAt),
+          },
+        }
+      );
+    }
     const { prompt, duration = 30_000 } = await req.json();
 
     if (!prompt) {
@@ -54,10 +83,7 @@ export async function POST(req: NextRequest) {
 
     // Check if R2 is configured and upload if available
     let r2Url: string | undefined;
-    if (
-      process.env.R2_ACCESS_KEY_ID &&
-      process.env.R2_ACCESS_KEY_ID !== 'your-access-key'
-    ) {
+    if (r2Manager.isConfigured()) {
       try {
         const buffer = Buffer.from(audioBuffer);
         r2Url = await r2Manager.uploadAudio(buffer);

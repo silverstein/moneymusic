@@ -117,7 +117,8 @@ export default function Home() {
       const completedGeneration = {
         ...generation,
         status: 'completed' as const,
-        audioUrl,
+        // Preserve R2 URL for metadata if available; fallback to blob URL for local use
+        audioUrl: generation.audioUrl?.startsWith('http') ? generation.audioUrl : audioUrl,
       };
 
       updateGeneration(generation.id, completedGeneration);

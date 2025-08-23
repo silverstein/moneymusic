@@ -49,6 +49,10 @@ AI-powered wealth mindset music generator. Transform your daily activities into 
    R2_SECRET_ACCESS_KEY=your_r2_secret_key
    R2_BUCKET_NAME=your_bucket_name
    R2_PUBLIC_URL=https://your-custom-domain.com
+
+   # Optional - abuse mitigation
+   GENERATION_SECRET=your_shared_secret
+   REQUIRE_BOT_ID=false
    ```
 
 4. Run the development server:
